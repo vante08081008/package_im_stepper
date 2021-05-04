@@ -82,6 +82,9 @@ class ShapePainter {
       case Shape.pipe2:
         _drawPipe2();
         break;
+      case Shape.pipeRounded:
+        _drawPipeRounded();
+        break;
       default:
         _drawCircle();
         break;
@@ -219,6 +222,27 @@ class ShapePainter {
           direction == Axis.vertical ? top + squeezeFactor : top,
           direction == Axis.horizontal ? right - squeezeFactor : right,
           direction == Axis.vertical ? bottom - squeezeFactor : bottom,
+        )
+            .translate(xTranslationFactor, yTranslationFactor)
+            .inflate(inflationFactor)
+            .deflate(deflationFactor),
+        Radius.circular(_maxCornerRadius),
+      ),
+      brush!,
+    );
+  }
+
+  /// Draws a pipe shape.
+  void _drawPipeRounded() {
+    double squeezeFactor = dotRadius! / 1.2;
+
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTRB(
+          direction == Axis.vertical ? left + squeezeFactor : left,
+          direction == Axis.horizontal ? top + squeezeFactor : top,
+          direction == Axis.vertical ? right - squeezeFactor : right,
+          direction == Axis.horizontal ? bottom - squeezeFactor : bottom,
         )
             .translate(xTranslationFactor, yTranslationFactor)
             .inflate(inflationFactor)
